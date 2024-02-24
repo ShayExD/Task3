@@ -5,6 +5,7 @@ import './App.css'
 import Register from './FComponents/register'
 import Login from './FComponents/login'
 import Profile from './FComponents/profile'
+import EditDetails from './FComponents/editDetails'
 
 
 
@@ -27,6 +28,7 @@ function App() {
     <Login/>
     <Profile/>
     <Register/>
+    <EditDetails/>
     </>
   )
 }
