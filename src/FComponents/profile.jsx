@@ -30,6 +30,33 @@ function Profile() {
 
     const user = JSON.parse(sessionStorage.getItem('loggedUser')) || ''
  
+    const handleLogoutClick = (email) => {
+      const loggedInUserEmail = user.email
+      console.log('loginUser email', loggedInUserEmail)
+      console.log('email', email)
+      if (loggedInUserEmail === email) {
+        sessionStorage.removeItem('loggedUser')
+        console.log(`User with email ${email} has been logged out.`)
+        const users = JSON.parse(localStorage.getItem('users')) || []
+        const updatedUsers = users.filter((user) => user.email !== email)
+        localStorage.setItem('users', JSON.stringify(updatedUsers))
+        console.log(
+          `User with email ${email} has been removed from local storage.`
+        )
+      } else {
+        console.log('The provided email does not match the logged-in user.')
+      }
+  
+      console.log('Logout button clicked')
+    }
+  
+    const handleGameClick = () => {
+      window.open(
+        'https://games.yo-yoo.co.il/games_play.php?game=729#google_vignette',
+        '_blank'
+      )
+    }
+  
 
   return (
 
@@ -77,7 +104,7 @@ function Profile() {
               color="primary"
               fullWidth
               size="large"
-              // onClick={handleGameClick}
+              onClick={handleGameClick}
             >
               Game
             </Button>
@@ -89,7 +116,7 @@ function Profile() {
               color="primary"
               fullWidth
               size="large"
-              // onClick={() => handleLogoutClick(user.email)}
+              onClick={() => handleLogoutClick(user.email)}
             >
               Log out
             </Button>
