@@ -1,4 +1,4 @@
-import React ,{useEffect} from 'react'
+import React ,{useEffect,useState} from 'react'
 import {
   TextField,
   Button,
@@ -28,7 +28,9 @@ function Profile() {
     },
   }
 
-    const user = JSON.parse(sessionStorage.getItem('loggedUser')) || ''
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('loggedUser')) || '')
+  console.log(user.profilePicture)
+    //const user = JSON.parse(sessionStorage.getItem('loggedUser')) || ''
  
     const handleLogoutClick = (email) => {
       const loggedInUserEmail = user.email
@@ -36,17 +38,10 @@ function Profile() {
       console.log('email', email)
       if (loggedInUserEmail === email) {
         sessionStorage.removeItem('loggedUser')
-        console.log(`User with email ${email} has been logged out.`)
-        const users = JSON.parse(localStorage.getItem('users')) || []
-        const updatedUsers = users.filter((user) => user.email !== email)
-        localStorage.setItem('users', JSON.stringify(updatedUsers))
-        console.log(
-          `User with email ${email} has been removed from local storage.`
-        )
+        setUser('')
       } else {
         console.log('The provided email does not match the logged-in user.')
       }
-  
       console.log('Logout button clicked')
     }
   
@@ -76,6 +71,13 @@ function Profile() {
         >
           Profile
         </Typography>
+        {user.profilePicture && (
+              <img
+                src={user.profilePicture}
+                alt="Profile Picture"
+                style={ProfileStyle.profilePictureStyle}
+              />
+            )}
         <h3>
           {user.name} {user.familyName}
         </h3>
