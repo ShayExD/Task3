@@ -106,11 +106,12 @@ const Register = () => {
   
       // Check if the input is a file input
       if (type === 'file') {
-        // For file input, use files[0] to get the selected file
+        //For file input, use files[0] to get the selected file
         setFormData((prevData) => ({
           ...prevData,
-          [name]: files[0],
-        }));
+        [name]: files[0],
+       }));
+
       } else {
         setFormData((prevData) => ({
           ...prevData,
@@ -123,7 +124,7 @@ const Register = () => {
       e.preventDefault();
 
       if (
-        formData.email !== '' && !/^[a-zA-Z@.]+\.com$/.test(formData.email) ||
+        formData.email !== '' && !/^[a-zA-Z0-9@.]+\.com$/.test(formData.email) ||
         formData.familyName !== '' && !/^\p{L}+$/u.test(formData.familyName) ||
         formData.name !== '' && !/^\p{L}+$/u.test(formData.name) ||
         formData.confirmPassword !== formData.password ||
@@ -285,9 +286,11 @@ const Register = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              error={formData.email !== '' && !/^[a-zA-Z@.]+\.com$/.test(formData.email)}
+              //error={formData.email !== '' && !/^[a-zA-Z@.]+\.com$/.test(formData.email)}
+               error={formData.email !== '' && !/^[a-zA-Z0-9@.]+\.com$/.test(formData.email)
+              }
             />
-            {formData.email !== '' && !/^[a-zA-Z@.]+\.com$/.test(formData.email) && (
+            {formData.email !== '' && !/^[a-zA-Z0-9@.]+\.com$/.test(formData.email) && (
               <FormHelperText error>
               Only English letters and special characters are allowed. The '@' symbol appears only once, and at the end of the text, there should be '.com' only.
               </FormHelperText>
@@ -319,7 +322,8 @@ const Register = () => {
             {/* Autocomplete for city */}
             <Autocomplete
               name="city"
-              // onChange={(event, newValue) => handleChange(event, newValue)}
+              value={formData.city}
+              onChange={(event, newValue) => handleChange({target: {name: "city", value: newValue}})}            
               options={centralCities}
               renderInput={(params) => (
                 <TextField
