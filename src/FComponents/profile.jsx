@@ -11,9 +11,16 @@ import {
   Link,
 } from '@mui/material'
 import ManOutlinedIcon from '@mui/icons-material/ManOutlined'
+import EditDetails from './editDetails';
 
 
 function Profile() {
+
+  const [showUpdate,setShowUpdate] = useState(false)
+
+  const handleUpdateButtonClick = () => {
+    setShowUpdate((prevState) => !prevState);
+  };
 
   const ProfileStyle = {
     paperStyle: {
@@ -26,6 +33,13 @@ function Profile() {
       marginBottom: 15,
       backgroundColor: 'rgb(19, 172, 126)',
     },
+    profilePictureStyle : {
+    width:"100px", 
+    height:"100px", 
+    borderRadius:"60px", 
+    border:"2px solid black", 
+    padding:"2px"
+    }
   }
 
   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('loggedUser')) || '')
@@ -74,7 +88,6 @@ function Profile() {
         {user.profilePicture && (
               <img
                 src={user.profilePicture}
-                alt="Profile Picture"
                 style={ProfileStyle.profilePictureStyle}
               />
             )}
@@ -94,7 +107,7 @@ function Profile() {
               color="primary"
               fullWidth
               size="large"
-              // onClick={handleUpdateDetailsClick}
+              onClick={handleUpdateButtonClick}
             >
               Update Details
             </Button>
@@ -124,72 +137,9 @@ function Profile() {
             </Button>
           </Grid>
         </Grid>
+        {showUpdate ? (<EditDetails></EditDetails>) : (<></>)}
       </Container>
     </Paper>)}
-    {/* <Paper elevation={10} style={ProfileStyle.paperStyle}>
-      <Grid align="center">
-        <Avatar style={ProfileStyle.avatarStyle}>
-          <ManOutlinedIcon align="center" />
-        </Avatar>
-      </Grid>
-      <Container maxWidth="xl">
-        <Typography
-          variant="h4"
-          align="center"
-          fontWeight="bold"
-          gutterBottom
-        >
-          Profile
-        </Typography>
-        <h3>
-          {user.name} {user.familyName}
-        </h3>
-        <h3>{user.email}</h3>
-        <h3>
-          {user.street} {user.number}, {user.city}{' '}
-        </h3>
-        <h3>{user.dob}</h3>
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              size="large"
-              // onClick={handleUpdateDetailsClick}
-            >
-              Update Details
-            </Button>
-          </Grid>
-          <Grid item xs={4}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              size="large"
-              // onClick={handleGameClick}
-            >
-              Game
-            </Button>
-          </Grid>
-          <Grid item xs={4}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              size="large"
-              // onClick={() => handleLogoutClick(user.email)}
-            >
-              Log out
-            </Button>
-          </Grid>
-        </Grid>
-      </Container>
-    </Paper> */}
-    {/* {isUpdateDetailsVisible && <EditDetails />} */}
   </Grid>  )
 }
 

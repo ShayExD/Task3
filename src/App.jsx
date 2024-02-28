@@ -35,7 +35,6 @@ function App() {
 			{user === '' ? <Login /> : ''}
 			{user.username === 'admin' ? <SystemAdmin /> : <Profile />}
 			{user === '' ? <Register /> : ''}
-			<EditDetails />
 		</>
 	);
 }

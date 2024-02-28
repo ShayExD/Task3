@@ -34,6 +34,8 @@ const Register = () => {
       number: '',
     });
 
+    const [messageInputPic,setMessageInputPic]=useState("")
+
     const centralCities = [
       'תל אביב',
       'ירושלים',
@@ -76,7 +78,7 @@ const Register = () => {
             )
               
             if (isUserExist) {
-              alert('User already exists. Please choose a different email.')
+              alert('User already exists. email or username already exist')
               return false;
             } 
               existingUsers.push(user)
@@ -119,6 +121,29 @@ const Register = () => {
         }));
       }
     };
+
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+          if (file.type === "image/jpeg" || file.type === "image/jpg") {
+              // Create an object URL for the file
+              const objectURL = URL.createObjectURL(file);
+              setFormData((prevData) => ({
+                ...prevData,
+                profilePicture: objectURL,
+              }));
+              setMessageInputPic("Image Inserted")
+          
+          }
+          else{
+            setMessageInputPic("Image format has to be .jpg or .jpeg");
+            setFormData((prevData) => ({
+              ...prevData,
+              profilePicture: '',
+            }));
+          }
+        }
+    };
   
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -130,7 +155,7 @@ const Register = () => {
         formData.confirmPassword !== formData.password ||
         formData.password !== '' && !/^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z]).{7,12}$/.test(formData.password) ||
         formData.username !== '' && !/^[a-zA-Z0-9!@#$%^&*()-_+=|<>?{}[\]:";'.,~\\/]{1,60}$/.test(formData.username) ||
-        formData.profilePicture !== '' && !/\.(jpeg|jpg)$/i.test(formData.profilePicture.name) ||
+        formData.profilePicture === ''||
         formData.birthDate !== '' && !isValidDate(formData.birthDate) ||
         formData.street !== '' && !/^[א-ת\s']+$/i.test(formData.street)||
         formData.number !== '' && !/^[0-9]+$/.test(formData.number)
@@ -258,7 +283,7 @@ const Register = () => {
                   id="profilePicture"
                   type="file"
                   name="profilePicture"
-                  onChange={handleChange}
+                  onChange={handleFileChange}
                 />
                 <label htmlFor="profilePicture">
                   <Button
@@ -269,11 +294,10 @@ const Register = () => {
                     Upload Profile Picture
                   </Button>
                 </label>
-                {formData.profilePicture && !/\.(jpeg|jpg)$/i.test(formData.profilePicture.name) && (
-                <FormHelperText error>
-                Invalid file format. Please upload a .jpeg or .jpg file.
+                <FormHelperText>
+                  {messageInputPic}
                 </FormHelperText>
-                )}
+                
               </Grid>
               {/* Add more fields as needed */}
             </Grid>

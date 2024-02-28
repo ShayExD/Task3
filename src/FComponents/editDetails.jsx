@@ -21,6 +21,10 @@ import {
 
 const EditDetails = () => {
 
+    const [messageInputPic,setMessageInputPic]=useState("")
+
+    const [messageUpdate, setMessage] = useState('')
+
 
     const [formDataUpdate, setformDataUpdate] = useState({
       
@@ -43,7 +47,30 @@ const EditDetails = () => {
       console.log(formDataUpdate);
     }, []);
   
+    const handleFileChange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+          if (file.type === "image/jpeg" || file.type === "image/jpg") {
+              // Create an object URL for the file
+              const objectURL = URL.createObjectURL(file);
+              setformDataUpdate((prevData) => ({
+                ...prevData,
+                profilePicture: objectURL,
+              }));
+              setMessageInputPic("Image Inserted")
 
+
+          
+          }
+          else{
+            setMessageInputPic("Image format has to be .jpg or .jpeg");
+            setformDataUpdate((prevData) => ({
+              ...prevData,
+              profilePicture: '',
+            }));
+          }
+        }
+    };
     
 
     const centralCities = [
@@ -108,7 +135,7 @@ const EditDetails = () => {
         // 5. Update local storage with the modified user array
         localStorage.setItem('users', JSON.stringify(users));
         sessionStorage.setItem('loggedUser', JSON.stringify(updateUser));
-
+        
         console.log(users)
       } else {
         // 6. Handle the case where the user is not found (optional)
@@ -144,17 +171,21 @@ const EditDetails = () => {
         formDataUpdate.confirmPassword !== formDataUpdate.password ||
         formDataUpdate.password !== '' && !/^(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[A-Z]).{7,12}$/.test(formDataUpdate.password) ||
         formDataUpdate.username !== '' && !/^[a-zA-Z0-9!@#$%^&*()-_+=|<>?{}[\]:";'.,~\\/]{1,60}$/.test(formDataUpdate.username) ||
-        formDataUpdate.profilePicture !== '' && !/\.(jpeg|jpg)$/i.test(formDataUpdate.profilePicture.name) ||
+        formDataUpdate.profilePicture === '' ||
         formDataUpdate.birthDate !== '' && !isValidDate(formDataUpdate.birthDate) ||
         formDataUpdate.street !== '' && !/^[א-ת\s']+$/i.test(formDataUpdate.street)||
         formDataUpdate.number !== '' && !/^[0-9]+$/.test(formDataUpdate.number)
+
       ) {
         console.log('Form has errors. Submission prevented.');
+        setMessage("Update failed");
+
         // You can add additional logic here, such as displaying an error message
         return;
       }
       editUser(formDataUpdate);
-      console.log("success")
+      setMessage("Update success");
+
     }
 
     return (
@@ -257,7 +288,7 @@ const EditDetails = () => {
                   id="profilePicture"
                   type="file"
                   name="profilePicture"
-                  onChange={handleChange}
+                  onChange={handleFileChange}
                 />
                 <label htmlFor="profilePicture">
                   <Button
@@ -268,11 +299,9 @@ const EditDetails = () => {
                     Upload Profile Picture
                   </Button>
                 </label>
-                {formDataUpdate.profilePicture && !/\.(jpeg|jpg)$/i.test(formDataUpdate.profilePicture.name) && (
-                <FormHelperText error>
-                Invalid file format. Please upload a .jpeg or .jpg file.
+                <FormHelperText>
+                  {messageInputPic}
                 </FormHelperText>
-                )}
               </Grid>
               {/* Add more fields as needed */}
             </Grid>
@@ -304,7 +333,7 @@ const EditDetails = () => {
               name="city"
               value={formDataUpdate.city}
 
-              // onChange={(event, newValue) => handleChange(event, newValue)}
+              onChange={(event, newValue) => handleChange({target: {name: "city", value: newValue}})}            
               options={centralCities}
               renderInput={(params) => (
                 <TextField
@@ -373,6 +402,8 @@ const EditDetails = () => {
             <Button type="submit" fullWidth variant="contained" color="primary" style={{marginTop:'10px'}}>
               Update
             </Button>
+            <div><p>{messageUpdate}</p></div>
+            
           </form>
         </div>
       </Container>
