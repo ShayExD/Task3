@@ -23,7 +23,9 @@ const EditDetails = () => {
 
 
     const [formDataUpdate, setformDataUpdate] = useState({
+      
       username: '',
+      email:'',
       password: '',
       confirmPassword: '',
       profilePicture: '', // To store the file selected by the user
@@ -90,6 +92,30 @@ const EditDetails = () => {
       return centralCities.includes(city);
     };
 
+
+    const editUser = (updateUser) => {
+      // 1. Get users data from local storage (or create an empty array if not found)
+      const users = JSON.parse(localStorage.getItem('users')) || [];
+    
+      // 2. Find the user that needs to be updated using the email
+      const userIndex = users.findIndex(user => user.email === updateUser.email);
+    
+      // 3. Check if the user is found
+      if (userIndex !== -1) {
+        // 4. Update the user at the found index
+        users[userIndex] = updateUser;
+    
+        // 5. Update local storage with the modified user array
+        localStorage.setItem('users', JSON.stringify(users));
+        sessionStorage.setItem('loggedUser', JSON.stringify(updateUser));
+
+        console.log(users)
+      } else {
+        // 6. Handle the case where the user is not found (optional)
+        console.warn(`User with email "${updateUser.email}" not found in local storage.`);
+      }
+    };
+    
   
     const handleChange = (e) => {
       const { name, value, type, files } = e.target;
@@ -127,21 +153,8 @@ const EditDetails = () => {
         // You can add additional logic here, such as displaying an error message
         return;
       }
-
-      const user = {
-        username: formDataUpdate.username,
-        password: formDataUpdate.password,
-        confirmPassword: formDataUpdate.confirmPassword,
-        profilePicture: formDataUpdate.profilePicture, // To store the file selected by the user
-        name: formDataUpdate.name,
-        familyName: formDataUpdate.familyName,
-        email: formDataUpdate.email,
-        birthDate:formDataUpdate.birthDate,
-        city: formDataUpdate.city,
-        street: formDataUpdate.street,
-        number: formDataUpdate.number,
-      }
-      
+      editUser(formDataUpdate);
+      console.log("success")
     }
 
     return (
@@ -289,6 +302,8 @@ const EditDetails = () => {
             {/* Autocomplete for city */}
             <Autocomplete
               name="city"
+              value={formDataUpdate.city}
+
               // onChange={(event, newValue) => handleChange(event, newValue)}
               options={centralCities}
               renderInput={(params) => (

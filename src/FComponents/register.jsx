@@ -124,7 +124,7 @@ const Register = () => {
       e.preventDefault();
 
       if (
-        formData.email !== '' && !/^[a-zA-Z0-9@.]+\.com$/.test(formData.email) ||
+        formData.email !== '' && !/^[^\s@]+@[^\s@]+\.(com)$/.test(formData.email) ||
         formData.familyName !== '' && !/^\p{L}+$/u.test(formData.familyName) ||
         formData.name !== '' && !/^\p{L}+$/u.test(formData.name) ||
         formData.confirmPassword !== formData.password ||
@@ -287,7 +287,7 @@ const Register = () => {
               onChange={handleChange}
               required
               //error={formData.email !== '' && !/^[a-zA-Z@.]+\.com$/.test(formData.email)}
-               error={formData.email !== '' && !/^[a-zA-Z0-9@.]+\.com$/.test(formData.email)
+               error={formData.email !== '' && !/^[^\s@]+@[^\s@]+\.(com)$/.test(formData.email)
               }
             />
             {formData.email !== '' && !/^[a-zA-Z0-9@.]+\.com$/.test(formData.email) && (
