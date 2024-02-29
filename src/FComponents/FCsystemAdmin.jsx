@@ -11,9 +11,8 @@ const AdministratorSystem = () => {
   useEffect(() => {
     // Fetch users from local storage or your API
     const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
-    const storedUsersWithoutAdmin = storedUsers.filter((user) => user.username !== 'admin');
 
-    setUsers(storedUsersWithoutAdmin);
+    setUsers(storedUsers);
   }, []);
 
   const handleEdit = (userEmail) => {
@@ -23,7 +22,7 @@ const AdministratorSystem = () => {
     // setShowEdit(true)
   };
 
-  const handleDelete = (userEmail) => {
+  const deleteUser = (userEmail) => {
     // Implement your delete logic here
     // Assuming users have unique IDs, you can filter out the user to delete
     const updatedUsers = users.filter((user) => user.email !== userEmail);
@@ -60,7 +59,7 @@ const AdministratorSystem = () => {
                 <Button onClick={() => handleEdit(user.email)} variant="outlined" color="primary">
                   Edit
                 </Button>
-                <Button onClick={() => handleDelete(user.email)} variant="outlined" color="secondary">
+                <Button onClick={() => deleteUser(user.email)} variant="outlined" color="secondary">
                   Delete
                 </Button>
               </TableCell>
