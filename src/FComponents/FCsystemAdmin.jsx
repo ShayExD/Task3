@@ -20,7 +20,6 @@ const AdministratorSystem = () => {
 		// Fetch users from local storage or your API
 		const storedUsers = JSON.parse(localStorage.getItem('users')) || [];
 		// const storedUsersWithoutAdmin = storedUsers.filter((user) => user.username !== 'admin');
-
 		setUsers(storedUsers);
 	}, []);
 
@@ -30,6 +29,7 @@ const AdministratorSystem = () => {
 		setShowEdit((prevState) => !prevState);
 		// setShowEdit(true)
 	};
+
 
 	const handleDelete = (userEmail) => {
 		// Implement your delete logic here
@@ -97,6 +97,7 @@ const AdministratorSystem = () => {
 			</div>
 		</div>
 	);
+ 
 };
 
 export default AdministratorSystem;

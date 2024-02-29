@@ -22,6 +22,7 @@ function App() {
 		setLoggedUser(user);
 	};
 
+
 	const handleLogout = () => {
 		setLoggedUser(null);
 	};
@@ -80,6 +81,7 @@ function App() {
 			) : (
 				<></>
 			)}
+
 
 			{!loggedUser ? <Register></Register> : ''}
 		</>
