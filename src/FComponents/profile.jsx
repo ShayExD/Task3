@@ -17,9 +17,21 @@ import PropTypes from 'prop-types';
 function Profile({ loggedUser, onLogout }) {
 	const [showUpdate, setShowUpdate] = useState(false);
 
+  const [user, setUser] = useState(
+		JSON.parse(sessionStorage.getItem('loggedUser')) || ''
+	);
+
 	const handleUpdateButtonClick = () => {
 		setShowUpdate((prevState) => !prevState);
 	};
+
+  const handleUpdate = (updatedUserData) => {
+    // Update the user data in the Profile component
+    setUser(updatedUserData);
+
+    // You can also update the data in sessionStorage if needed
+    sessionStorage.setItem('loggedUser', JSON.stringify(updatedUserData));
+  };
 
 	Profile.propTypes = {
 		loggedUser: PropTypes.object.isRequired,
@@ -46,9 +58,7 @@ function Profile({ loggedUser, onLogout }) {
 		},
 	};
 
-	const [user, setUser] = useState(
-		JSON.parse(sessionStorage.getItem('loggedUser')) || ''
-	);
+
 	console.log(user.profilePicture);
 	//const user = JSON.parse(sessionStorage.getItem('loggedUser')) || ''
 
@@ -137,7 +147,7 @@ function Profile({ loggedUser, onLogout }) {
 							</Button>
 						</Grid>
 					</Grid>
-					{showUpdate ? <EditDetails userToEdit={user}></EditDetails> : <></>}
+					{showUpdate ? <EditDetails userToEdit={user} onUpdate={handleUpdate} ></EditDetails> : <></>}
 				</Container>
 			</Paper>
 		</Grid>

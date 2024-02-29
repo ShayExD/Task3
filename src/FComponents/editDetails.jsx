@@ -20,7 +20,7 @@ import {
 
 
 
-const EditDetails = ({userToEdit}) => {
+const EditDetails = ({userToEdit,onUpdate}) => {
 
     const [messageInputPic,setMessageInputPic]=useState("")
 
@@ -137,7 +137,7 @@ const EditDetails = ({userToEdit}) => {
       if (userIndex !== -1) {
         // 4. Update the user at the found index
         users[userIndex] = updateUser;
-    
+        onUpdate(updateUser);
         // 5. Update local storage with the modified user array
         localStorage.setItem('users', JSON.stringify(users));
         sessionStorage.setItem('loggedUser', JSON.stringify(updateUser));
