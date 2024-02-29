@@ -19,10 +19,12 @@ function App() {
 	const [loggedUser, setLoggedUser] = useState('');
 
 	const handleLogin = (user) => {
-		setLoggedUser(user);};
-	
+		setLoggedUser(user);
+	};
+
 	const handleLogout = () => {
-		setLoggedUser(null);};  
+		setLoggedUser(null);
+	};
 
 	const loadUsers = () => {
 		console.log(usersData);
@@ -36,6 +38,8 @@ function App() {
 		if (!savedUsers || savedUsers.length === 0) {
 			localStorage.setItem('users', JSON.stringify(usersData));
 		}
+		const user = JSON.parse(sessionStorage.getItem('loggedUser'));
+		setLoggedUser(user);
 		loadUsers();
 	}, []);
 
@@ -45,27 +49,39 @@ function App() {
 			{user === '' ? <Register /> : ''}
 			{loggedUser ? <Profile /> : <p>need to connect</p>} */}
 
-		<div>
-      <Login onLogin={handleLogin} />
-      {loggedUser && loggedUser.username!=='admin' && loggedUser.password !=='admin' ? (
-        <Profile loggedUser={loggedUser} onLogout={handleLogout} />
-      ) : (
-		<div style={{display:'flex', textAlign:'center',justifyContent:'center',alignItems:'center'}}>
-		<Avatar style={{marginRight:'10px', backgroundColor: 'rgb(19, 172, 126)' ,textAlign:'center'}}>
-        <ManOutlinedIcon />
-      </Avatar>
-        <p>User is not logged in</p>
-		</div>
-      )}
-    </div>
-	{loggedUser && loggedUser.username==='admin' && loggedUser.password ==='ad12343211ad' ? (
-    <AdministratorSystem/>
+			<div>
+				{loggedUser ? '' : <Login onLogin={handleLogin} />}
+				{loggedUser ? (
+					<Profile loggedUser={loggedUser} onLogout={handleLogout} />
+				) : (
+					<div
+						style={{
+							display: 'flex',
+							textAlign: 'center',
+							justifyContent: 'center',
+							alignItems: 'center',
+						}}>
+						<Avatar
+							style={{
+								marginRight: '10px',
+								backgroundColor: 'rgb(19, 172, 126)',
+								textAlign: 'center',
+							}}>
+							<ManOutlinedIcon />
+						</Avatar>
+						<p>User is not logged in</p>
+					</div>
+				)}
+			</div>
+			{loggedUser &&
+			loggedUser.username === 'admin' &&
+			loggedUser.password === 'ad12343211ad' ? (
+				<AdministratorSystem />
+			) : (
+				<></>
+			)}
 
-      ) : (
-		<></>
-      )}
-
-	<Register></Register>
+			{!loggedUser ? <Register></Register> : ''}
 		</>
 	);
 }
