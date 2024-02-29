@@ -33,7 +33,7 @@ const Register = () => {
 	});
 
 	const [messageInputPic, setMessageInputPic] = useState('');
-
+  const [messageRegister, setmessageRegister] = useState('check');
 	const centralCities = [
 		'תל אביב',
 		'ירושלים',
@@ -76,12 +76,12 @@ const Register = () => {
 		);
 
 		if (isUserExist) {
-			alert('User already exists. email or username already exist');
+			setmessageRegister('User already exists. email or username already exist');
 			return false;
 		}
 		existingUsers.push(user);
 		localStorage.setItem('users', JSON.stringify(existingUsers));
-		alert('User registered successfully.');
+		setmessageRegister('User registered successfully.');
 		console.log('User registered:', user);
 		console.log(existingUsers);
 	};
@@ -456,6 +456,7 @@ const Register = () => {
 						Register
 					</Button>
 				</form>
+        {messageRegister}
 			</div>
 		</Container>
 	);
