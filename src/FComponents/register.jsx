@@ -33,7 +33,7 @@ const Register = () => {
 	});
 
 	const [messageInputPic, setMessageInputPic] = useState('');
-  const [messageRegister, setmessageRegister] = useState('check');
+  const [messageRegister, setmessageRegister] = useState('');
 	const centralCities = [
 		'תל אביב',
 		'ירושלים',
