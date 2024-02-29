@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   Typography,
@@ -9,14 +10,17 @@ import {
 } from '@mui/material';
 import Profile from './profile';
 
-function Login() {
-  
+function Login({ onLogin }) {
+
+  const [loggedUser, setLoggedUser] = useState('');
 
   const [formLoginData, setFormLoginData] = useState({
     username: '',
     password: '',
   });
 const [loginSuccess,setLoginSuccess]= useState(false)
+
+
 
 const loginUser = () => {
 
@@ -29,7 +33,9 @@ const loginUser = () => {
     setLoginSuccess(true)
     // Save the logged-in user in sessionStorage
     sessionStorage.setItem('loggedUser', JSON.stringify(loggedInUser));
-
+    // setUser(loggedInUser);
+    onLogin(loggedInUser);
+    setLoggedUser(loggedInUser)
     return loggedInUser;
   } else {
       setLoginSuccess(false)
@@ -37,6 +43,10 @@ const loginUser = () => {
     console.log('Invalid username or password. Please try again.');
     return null;
   }
+};
+
+Login.propTypes = {
+  onLogin: PropTypes.func.isRequired,
 };
 
 const handleChange = (e) => {
@@ -86,7 +96,9 @@ const handleSubmit = (e) => {
               Login
             </Button>
             </form>
-            {loginSuccess ? (<Profile></Profile>) :(<p>neet to sign in</p>)}
+            {/* {loggedUser !== '' ? (<Profile loggedUser={loggedUser} />) : (<p>Need to sign in</p>)} */}
+
+
     </div>
   )
  }

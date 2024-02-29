@@ -12,15 +12,22 @@ import {
 } from '@mui/material'
 import ManOutlinedIcon from '@mui/icons-material/ManOutlined'
 import EditDetails from './editDetails';
+import PropTypes from 'prop-types';
 
 
-function Profile() {
+function Profile({ loggedUser, onLogout }) {
 
   const [showUpdate,setShowUpdate] = useState(false)
 
   const handleUpdateButtonClick = () => {
     setShowUpdate((prevState) => !prevState);
   };
+
+  Profile.propTypes = {
+    loggedUser: PropTypes.object.isRequired,
+    onLogout: PropTypes.func.isRequired,
+  };
+  
 
   const ProfileStyle = {
     paperStyle: {
@@ -53,6 +60,7 @@ function Profile() {
       if (loggedInUserEmail === email) {
         sessionStorage.removeItem('loggedUser')
         setUser('')
+        onLogout();
       } else {
         console.log('The provided email does not match the logged-in user.')
       }
@@ -69,7 +77,11 @@ function Profile() {
 
   return (
 
+    
+    
+
     <Grid>
+
       <Paper elevation={10} style={ProfileStyle.paperStyle}>
       
       <Container maxWidth="xl">
@@ -133,7 +145,7 @@ function Profile() {
             </Button>
           </Grid>
         </Grid>
-        {showUpdate ? (<EditDetails></EditDetails>) : (<></>)}
+        {showUpdate ? (<EditDetails userToEdit={user}></EditDetails>) : (<></>)}
       </Container>
     </Paper>
   </Grid>  )

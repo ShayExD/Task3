@@ -8,12 +8,21 @@ import Profile from './FComponents/profile';
 import EditDetails from './FComponents/editDetails';
 import SystemAdmin from './FComponents/systemAdmin';
 import usersData from './utils/userData.js';
+import ManOutlinedIcon from '@mui/icons-material/ManOutlined';
+
+import { Avatar } from '@mui/material';
+import AdministratorSystem from './FComponents/FCsystemAdmin.jsx';
+
 // import { users } from './utils/users.json';
 
 function App() {
-	const [user, setUser] = useState(
-		JSON.parse(sessionStorage.getItem('loggedUser')) || ''
-	);
+	const [loggedUser, setLoggedUser] = useState('');
+
+	const handleLogin = (user) => {
+		setLoggedUser(user);};
+	
+	const handleLogout = () => {
+		setLoggedUser(null);};  
 
 	const loadUsers = () => {
 		console.log(usersData);
@@ -32,8 +41,31 @@ function App() {
 
 	return (
 		<>
-			{user === '' ? <Login /> : ''}
+			{/* {user === '' ? <Login onLogin={handleLogin} /> : ''}
 			{user === '' ? <Register /> : ''}
+			{loggedUser ? <Profile /> : <p>need to connect</p>} */}
+
+		<div>
+      <Login onLogin={handleLogin} />
+      {loggedUser && loggedUser.username!=='admin' && loggedUser.password !=='admin' ? (
+        <Profile loggedUser={loggedUser} onLogout={handleLogout} />
+      ) : (
+		<div style={{display:'flex', textAlign:'center',justifyContent:'center',alignItems:'center'}}>
+		<Avatar style={{marginRight:'10px', backgroundColor: 'rgb(19, 172, 126)' ,textAlign:'center'}}>
+        <ManOutlinedIcon />
+      </Avatar>
+        <p>User is not logged in</p>
+		</div>
+      )}
+    </div>
+	{loggedUser && loggedUser.username==='admin' && loggedUser.password ==='ad12343211ad' ? (
+    <AdministratorSystem/>
+
+      ) : (
+		<></>
+      )}
+
+	<Register></Register>
 		</>
 	);
 }

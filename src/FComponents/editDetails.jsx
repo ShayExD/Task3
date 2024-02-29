@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import {
   Container,
@@ -19,7 +20,7 @@ import {
 
 
 
-const EditDetails = () => {
+const EditDetails = ({userToEdit}) => {
 
     const [messageInputPic,setMessageInputPic]=useState("")
 
@@ -41,9 +42,14 @@ const EditDetails = () => {
       number: '',
     });
 
+
+    EditDetails.propTypes = {
+      userToEdit: PropTypes.object.isRequired,
+    };
+
     useEffect(() => {
-      const user = JSON.parse(sessionStorage.getItem('loggedUser')) || ''
-      setformDataUpdate(user)
+      // const user = JSON.parse(sessionStorage.getItem('loggedUser')) || ''
+      setformDataUpdate(userToEdit)
       console.log(formDataUpdate);
     }, []);
   

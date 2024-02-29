@@ -1,8 +1,8 @@
 const usersData = [
 	{
 		username: 'admin',
-		password: 'admin123',
-		confirmPassword: 'C0d3@2024',
+		password: 'ad12343211ad',
+		confirmPassword: 'ad12343211ad',
 		profilePicture: 'explorer_pic.png',
 		name: 'Aria',
 		familyName: 'Byte',
