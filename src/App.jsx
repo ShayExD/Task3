@@ -19,7 +19,9 @@ function App() {
 	const [loggedUser, setLoggedUser] = useState('');
 
 	const handleLogin = (user) => {
-		setLoggedUser(user);};
+		setLoggedUser(user);
+	
+	};
 	
 	const handleLogout = () => {
 		setLoggedUser(null);};  
@@ -46,7 +48,7 @@ function App() {
 			{loggedUser ? <Profile /> : <p>need to connect</p>} */}
 
 		<div>
-      <Login onLogin={handleLogin} />
+      <Login onLogin={handleLogin} />  
       {loggedUser && loggedUser.username!=='admin' && loggedUser.password !=='admin' ? (
         <Profile loggedUser={loggedUser} onLogout={handleLogout} />
       ) : (
