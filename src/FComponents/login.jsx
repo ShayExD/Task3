@@ -18,7 +18,7 @@ function Login({ onLogin }) {
     username: '',
     password: '',
   });
-const [loginSuccess,setLoginSuccess]= useState(false)
+const [loginMessage,setLoginMessage]= useState('')
 
 
 
@@ -30,7 +30,7 @@ const loginUser = () => {
   const loggedInUser = users.find(user => user.username === formLoginData.username && user.password === formLoginData.password);
   if (loggedInUser) {
     console.log('Login successful! Welcome, ', loggedInUser.name);
-    setLoginSuccess(true)
+    setLoginMessage('Login successful! Welcome, ' + loggedInUser.username)
     // Save the logged-in user in sessionStorage
     sessionStorage.setItem('loggedUser', JSON.stringify(loggedInUser));
     // setUser(loggedInUser);
@@ -38,7 +38,7 @@ const loginUser = () => {
     setLoggedUser(loggedInUser)
     return loggedInUser;
   } else {
-      setLoginSuccess(false)
+    setLoginMessage('Invalid username or password. Please try again.')
 
     console.log('Invalid username or password. Please try again.');
     return null;
@@ -96,7 +96,9 @@ const handleSubmit = (e) => {
               Login
             </Button>
             </form>
-            {/* {loggedUser !== '' ? (<Profile loggedUser={loggedUser} />) : (<p>Need to sign in</p>)} */}
+
+            <div><p style={{color:'black'}}>{loginMessage}</p></div>
+
 
 
     </div>

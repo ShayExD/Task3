@@ -184,7 +184,7 @@ const EditDetails = ({userToEdit}) => {
 
       ) {
         console.log('Form has errors. Submission prevented.');
-        setMessage("Update failed");
+      setMessage("Update failed");
 
         // You can add additional logic here, such as displaying an error message
         return;
@@ -408,7 +408,7 @@ const EditDetails = ({userToEdit}) => {
             <Button type="submit" fullWidth variant="contained" color="primary" style={{marginTop:'10px'}}>
               Update
             </Button>
-            <div><p>{messageUpdate}</p></div>
+            <div><p style={{color:'black'}}>{messageUpdate}</p></div>
             
           </form>
         </div>
