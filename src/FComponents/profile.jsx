@@ -70,12 +70,8 @@ function Profile() {
   return (
 
     <Grid>
-      {user === '' ? (<p>Need to connect to user.</p>):(<Paper elevation={10} style={ProfileStyle.paperStyle}>
-      <Grid align="center">
-        <Avatar style={ProfileStyle.avatarStyle}>
-          <ManOutlinedIcon align="center" />
-        </Avatar>
-      </Grid>
+      <Paper elevation={10} style={ProfileStyle.paperStyle}>
+      
       <Container maxWidth="xl">
         <Typography
           variant="h4"
@@ -84,13 +80,13 @@ function Profile() {
           gutterBottom
         >
           Profile
-        </Typography>
+        </Typography><div>
         {user.profilePicture && (
               <img
                 src={user.profilePicture}
                 style={ProfileStyle.profilePictureStyle}
               />
-            )}
+            )}</div>
         <h3>
           {user.name} {user.familyName}
         </h3>
@@ -139,7 +135,7 @@ function Profile() {
         </Grid>
         {showUpdate ? (<EditDetails></EditDetails>) : (<></>)}
       </Container>
-    </Paper>)}
+    </Paper>
   </Grid>  )
 }
 

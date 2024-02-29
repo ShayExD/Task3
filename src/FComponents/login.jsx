@@ -7,6 +7,7 @@ import {
   Grid,
 
 } from '@mui/material';
+import Profile from './profile';
 
 function Login() {
   
@@ -15,19 +16,24 @@ function Login() {
     username: '',
     password: '',
   });
+const [loginSuccess,setLoginSuccess]= useState(false)
 
 const loginUser = () => {
+
+
   const users = JSON.parse(localStorage.getItem('users')) || []
   // Find a user with the given username and password
   const loggedInUser = users.find(user => user.username === formLoginData.username && user.password === formLoginData.password);
   if (loggedInUser) {
     console.log('Login successful! Welcome, ', loggedInUser.name);
-
+    setLoginSuccess(true)
     // Save the logged-in user in sessionStorage
     sessionStorage.setItem('loggedUser', JSON.stringify(loggedInUser));
 
     return loggedInUser;
   } else {
+      setLoginSuccess(false)
+
     console.log('Invalid username or password. Please try again.');
     return null;
   }
@@ -43,6 +49,8 @@ const handleChange = (e) => {
  }
 const handleSubmit = (e) => {
       // Add your registration logic here
+      e.preventDefault();
+
       loginUser();
       console.log('Form LoginData:', formLoginData);
     };
@@ -78,6 +86,7 @@ const handleSubmit = (e) => {
               Login
             </Button>
             </form>
+            {loginSuccess ? (<Profile></Profile>) :(<p>neet to sign in</p>)}
     </div>
   )
  }

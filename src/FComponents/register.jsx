@@ -277,7 +277,21 @@ const Register = () => {
             )}
               </Grid>
               <Grid item xs={12}>
-                <input
+                {/* <input
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                  id="profilePicture"
+                  type="file"
+                  name="profilePicture"
+                  onChange={handleFileChange}
+                /> */}
+                <label htmlFor="profilePicture">
+                  <Button
+                    fullWidth
+                    variant="outlined"
+                    component="span"
+                  >
+                  <input
                   accept="image/*"
                   style={{ display: 'none' }}
                   id="profilePicture"
@@ -285,12 +299,6 @@ const Register = () => {
                   name="profilePicture"
                   onChange={handleFileChange}
                 />
-                <label htmlFor="profilePicture">
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    component="span"
-                  >
                     Upload Profile Picture
                   </Button>
                 </label>
@@ -418,6 +426,8 @@ const Register = () => {
             </Button>
           </form>
         </div>
+
+        
       </Container>
     );
   };

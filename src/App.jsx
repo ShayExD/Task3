@@ -33,7 +33,6 @@ function App() {
 	return (
 		<>
 			{user === '' ? <Login /> : ''}
-			{user.username === 'admin' ? <SystemAdmin /> : <Profile />}
 			{user === '' ? <Register /> : ''}
 		</>
 	);
