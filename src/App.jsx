@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
+import { createTheme } from '@mui/material';
 import './App.css';
 import Register from './FComponents/register';
 import Login from './FComponents/login';
@@ -10,7 +10,7 @@ import SystemAdmin from './FComponents/systemAdmin';
 import usersData from './utils/userData.js';
 import ManOutlinedIcon from '@mui/icons-material/ManOutlined';
 
-import { Avatar } from '@mui/material';
+import { Avatar, ThemeProvider } from '@mui/material';
 import AdministratorSystem from './FComponents/FCsystemAdmin.jsx';
 
 // import { users } from './utils/users.json';
@@ -44,18 +44,33 @@ function App() {
 		loadUsers();
 	}, []);
 
+
+	const theme = createTheme({
+	  components: {
+		MuiButton: {
+		  styleOverrides: {
+			root: {
+				// backgroundColor:'#deb46d',
+			  borderRadius: 15,
+			},
+		  }, 
+		}, 
+	  },
+	});
 	return (
-		<>
+		<ThemeProvider theme={theme}>
+
+		<div className='container'>
 			{/* {user === '' ? <Login onLogin={handleLogin} /> : ''}
 			{user === '' ? <Register /> : ''}
-			{loggedUser ? <Profile /> : <p>need to connect</p>} */}
+		{loggedUser ? <Profile /> : <p>need to connect</p>} */}
 
 			<div>
 				{loggedUser ? '' : <Login onLogin={handleLogin} />}
 				{loggedUser ? (
 					<Profile loggedUser={loggedUser} onLogout={handleLogout} />
-				) : (
-					<div
+					) : (
+						<div
 						style={{
 							display: 'flex',
 							textAlign: 'center',
@@ -78,13 +93,14 @@ function App() {
 			loggedUser.username === 'admin' &&
 			loggedUser.password === 'ad12343211ad' ? (
 				<AdministratorSystem />
-			) : (
-				<></>
-			)}
+				) : (
+					<></>
+					)}
 
 
 			{!loggedUser ? <Register></Register> : ''}
-		</>
+		</div>
+					</ThemeProvider>
 	);
 }
 

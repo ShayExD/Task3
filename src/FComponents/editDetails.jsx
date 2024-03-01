@@ -195,7 +195,7 @@ const EditDetails = ({userToEdit,onUpdate}) => {
     }
 
     return (
-      <Container component="main" maxWidth="xs" style={{ backgroundColor: '#f0f0f0' , marginTop:'20px' }}>
+      <Container component="main" maxWidth="xs" style={{ marginTop:'20px' }}>
         <div>
 
           <Typography component="h1" variant="h5" style={{ color: '#000000' }}>

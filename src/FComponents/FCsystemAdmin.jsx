@@ -44,8 +44,8 @@ const AdministratorSystem = () => {
 		<div>
 			<TableContainer component={Paper}>
 				<Table>
-					<TableHead>
-						<TableRow>
+					<TableHead >
+						<TableRow >
 							<TableCell>Username</TableCell>
 							<TableCell>Full Name</TableCell>
 							<TableCell>Birth Date</TableCell>

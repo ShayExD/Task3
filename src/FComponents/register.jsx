@@ -188,7 +188,8 @@ const Register = () => {
 		<Container
 			component="main"
 			maxWidth="xs"
-			style={{ backgroundColor: '#f0f0f0' }}>
+			// style={{ backgroundColor: '#f0f0f0' }}
+			>
 			<div>
 				<Typography component="h1" variant="h5" style={{ color: '#000000' }}>
 					Register

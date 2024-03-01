@@ -85,7 +85,7 @@ function Profile({ loggedUser, onLogout }) {
 
 	return (
 		<Grid>
-			<Paper elevation={10} style={ProfileStyle.paperStyle}>
+			<Paper elevation={1} style={ProfileStyle.paperStyle}>
 				<Container maxWidth="xl">
 					<Typography
 						variant="h4"
